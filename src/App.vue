@@ -1,11 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import DrawingContainer from "./components/DrawingContainer.vue";
+</script>
 
 <template>
-  <h1>hello world!</h1>
+  <DrawingContainer />
 </template>
 
 <style lang="scss">
-h1 {
-  color: rebeccapurple;
-}
+@import url("./styles/main.scss");
 </style>
