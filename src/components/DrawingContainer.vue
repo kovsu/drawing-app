@@ -1,5 +1,10 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { onMounted, watch, withCtx } from "vue";
+
+const props = defineProps<{
+  lineWidth: number;
+  isClear: number;
+}>();
 
 interface Point {
   x: number;
@@ -10,6 +15,7 @@ function drawLine(ctx: CanvasRenderingContext2D, p1: Point, p2: Point) {
   ctx.beginPath();
   ctx.moveTo(p1.x, p1.y);
   ctx.lineTo(p2.x, p2.y);
+  ctx.lineWidth = props.lineWidth;
   ctx.stroke();
 }
 
@@ -46,6 +52,13 @@ onMounted(() => {
   canvas.addEventListener("mouseleave", () => {
     isPressed = false;
   });
+
+  watch(
+    () => props.isClear,
+    (val) => {
+      ctx.clearRect(0, 0, 600, 600);
+    }
+  );
 });
 </script>
 
