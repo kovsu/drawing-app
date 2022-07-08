@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { provide, ref } from "vue";
 import DrawingContainer from "./components/DrawingContainer.vue";
 import HeaderOperation from "./components/HeaderOperation.vue";
 
-let size = ref(12);
+let size = ref(1);
 let isClear = ref(0);
 
 function change(value: boolean) {
@@ -15,13 +15,26 @@ function change(value: boolean) {
 }
 
 function clear() {
-  isClear.value +=1;
+  isClear.value += 1;
 }
 
+let defaultColor = ref("#55efc4");
+
+provide("lineColor", defaultColor);
+
+function colorVal(color: string) {
+  console.log(color);
+  defaultColor.value = color;
+}
 </script>
 
 <template>
-  <HeaderOperation :lineWidth="size" @change="change" @clear="clear" />
+  <HeaderOperation
+    :lineWidth="size"
+    @change="change"
+    @clear="clear"
+    @commit-color="colorVal"
+  />
   <DrawingContainer :lineWidth="size" :isClear="isClear" />
 </template>
 

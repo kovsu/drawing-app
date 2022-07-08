@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ColorOptions from "./ColorOptions.vue";
 defineProps<{
   lineWidth: number;
 }>();
@@ -6,6 +7,7 @@ defineProps<{
 const emit = defineEmits<{
   (e: "change", stauts: boolean): void;
   (e: "clear"): void;
+  (e: "commitColor", color: string): void;
 }>();
 
 function plus() {
@@ -19,10 +21,15 @@ function minus() {
 function clear() {
   emit("clear");
 }
+
+function colorChange(color: string) {
+  emit("commitColor", color);
+}
 </script>
 
 <template>
   <header class="draw__header">
+    <ColorOptions @color-change="colorChange" />
     <div class="draw__font">
       <font-awesome-icon
         icon="fa fa-circle-minus"

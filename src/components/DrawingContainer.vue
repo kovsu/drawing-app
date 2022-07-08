@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, watch, withCtx } from "vue";
+import { inject, onMounted, Ref, watch, withCtx } from "vue";
 
 const props = defineProps<{
   lineWidth: number;
@@ -11,11 +11,14 @@ interface Point {
   y: number;
 }
 
+const lineColor: Ref<string> = inject("lineColor")!;
+
 function drawLine(ctx: CanvasRenderingContext2D, p1: Point, p2: Point) {
   ctx.beginPath();
   ctx.moveTo(p1.x, p1.y);
   ctx.lineTo(p2.x, p2.y);
   ctx.lineWidth = props.lineWidth;
+  ctx.strokeStyle = lineColor.value;
   ctx.stroke();
 }
 
